@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<main class="home-container">
+    <div class="hero-text">
+        <span class="tag"><i class="fa-solid fa-microchip"></i> AI Powered • Fast • Accurate</span>
+        <h1>See the World<br><span class="text-gradient">Through AI</span></h1>
+        <p>Upload an image on the next page and let our AI model identify objects instantly. Built with MobileNetV2 and deep learning, this system can recognize everyday objects with high accuracy.</p>
+        
+        <div class="features-list">
+            <div class="feature"><i class="fa-solid fa-bolt text-green"></i> <div><strong>Fast</strong><br><span>Real-time prediction</span></div></div>
+            <div class="feature"><i class="fa-solid fa-shield-check text-blue"></i> <div><strong>Accurate</strong><br><span>Deep learning model</span></div></div>
+            <div class="feature"><i class="fa-solid fa-database text-purple"></i> <div><strong>1000 Classes</strong><br><span>Common objects</span></div></div>
+        </div>
+
+<a href="{{ url_for('recognize.recognize') }}" class="btn-primary">
+    Start Recognizing <i class="fa-solid fa-arrow-right"></i>
+</a>
+
+</div>
+    
+    <div class="hero-image">
+        <!-- Placeholder for your hero graphic -->
+        <div class="glass-card">
+            <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=600&auto=format&fit=crop" alt="Dog AI Example">
+            <div class="floating-badge"><i class="fa-solid fa-dog"></i> Dog <span class="percent">94.2%</span></div>
+        </div>
+    </div>
+</main>
+{% endblock %}

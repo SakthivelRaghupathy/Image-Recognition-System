@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<main class="recognize-container">
+    <div class="text-center header-section">
+        <h1>Recognize Objects in Images</h1>
+        <p>Upload an image and let our AI model identify the object with high accuracy.</p>
+        <div class="features-row">
+             <span><i class="fa-solid fa-bolt text-green"></i> Fast</span>
+             <span><i class="fa-solid fa-shield text-blue"></i> Accurate</span>
+             <span><i class="fa-solid fa-database text-purple"></i> 1000 Classes</span>
+        </div>
+    </div>
+
+    {% if results %}
+    <div class="results-grid">
+        <!-- Left Column: Image -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fa-regular fa-image"></i> Input Image</h3>
+<a href="{{ url_for('recognize.recognize') }}" class="btn-text">
+    <i class="fa-solid fa-rotate-right"></i> Change Image
+</a>
+            </div>
+            <div class="image-wrapper">
+<img src="{{ url_for('recognize.download_file', name=filename) }}" alt="Uploaded">            </div>
+            <div class="image-meta">
+                <i class="fa-regular fa-file-image"></i> {{ filename }}
+            </div>
+        </div>
+
+        <!-- Right Column: Predictions -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fa-solid fa-chart-simple"></i> Prediction Results</h3>
+                <span class="badge-success"><i class="fa-solid fa-circle-check"></i> Prediction completed!</span>
+            </div>
+            <div class="prediction-list">
+                {% for item in results %}
+                <div class="prediction-row">
+                    <div class="icon-box"><i class="fa-solid {% if item.is_top %}fa-paw text-primary{% else %}fa-tag text-muted{% endif %}"></i></div>
+                    <div class="bar-container">
+                        <div class="label-row">
+                            <span class="label {% if item.is_top %}fw-bold{% endif %}">{{ item.label }}</span>
+                            <span class="percent {% if item.is_top %}text-primary fw-bold{% endif %}">{{ item.confidence }}%</span>
+                        </div>
+                        <div class="progress-bg">
+                            <div class="progress-fill {% if item.is_top %}bg-primary{% else %}bg-muted{% endif %}" style="width: {{ item.confidence }}%;"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="info-text">
+                <i class="fa-solid fa-circle-info"></i> Showing top 5 predictions.
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Drag and Drop Upload -->
+    <div class="upload-card">
+        <form method="POST" enctype="multipart/form-data" id="uploadForm">
+            <div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                <h3>Drag & drop another image here</h3>
+                <p>or click to browse</p>
+                <span class="formats">Supported formats: JPG, PNG, JPEG | Max size: 5MB</span>
+                <input type="file" name="file" id="fileInput" accept="image/*" style="display: none;" onchange="document.getElementById('uploadForm').submit()">
+                <br>
+                <button type="button" class="btn-primary mt-3"><i class="fa-regular fa-image"></i> Choose Image</button>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}

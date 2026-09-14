@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Recognition System</title>
+    <!-- Using Google Fonts and FontAwesome for icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-camera bg-blue"></i>
+            <span>Image Recognition System</span>
+        </div>
+        <div class="nav-links">
+    <a href="{{ url_for('main.index') }}" class="{% if request.endpoint == 'main.index' %}active{% endif %}">
+        <i class="fa-solid fa-house"></i> Home
+    </a>
+    <a href="{{ url_for('recognize.recognize') }}" class="{% if request.endpoint == 'recognize.recognize' %}active{% endif %}">
+        <i class="fa-solid fa-image"></i> Recognize
+    </a>
+</div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        <p>&copy; 2024 Image Recognition System | Built with AI</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/jscript.js') }}"></script>
+</body>
+</html>
